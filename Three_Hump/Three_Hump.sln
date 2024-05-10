@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Three_Hump", "Three_Hump\Three_Hump.pyproj", "{69D3DA62-3E84-465A-98E1-F1E689FE09D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D3DA62-3E84-465A-98E1-F1E689FE09D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D3DA62-3E84-465A-98E1-F1E689FE09D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B611D266-B737-4B0A-ACCC-51B3FCB7C412}
+	EndGlobalSection
+EndGlobal

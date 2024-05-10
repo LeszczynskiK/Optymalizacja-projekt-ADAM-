@@ -41,7 +41,7 @@ def adam_optimization(gradient_func, function, initial_point, max_learning_rate=
         point = new_point
         history.append(function(*point))  # Save function value
         variable_history.append(point)
-
+        
     return point, np.array(history), np.array(variable_history)
 
 # Gradient Functions
@@ -59,6 +59,16 @@ def three_hump_camel_gradient(x1, x2):
     grad_x1 = 4 * x1**3 - 4.2 * x1**3 + x1**5 + x2
     grad_x2 = x1 + 2 * x2
     return np.array([grad_x1, grad_x2])
+
+# Constraint Functions
+def constraint_g1(x1, x2):
+    return 1.5 - 0.5 * x1 - x2
+
+def constraint_g2(x1, x2):
+    return x1**2 + 2 * x1 - x2
+
+def constraint_g3(x1, x2):
+    return x1**2 + x2**2
 
 # Initial point
 initial_point = np.array([-5, 5])
@@ -117,7 +127,7 @@ plt.text(optimal_point_rosenbrock[0], optimal_point_rosenbrock[1], 'Rosenbrock O
 
 # Add constraint g1(x1, x2) = 0
 x1_constraint = np.linspace(-10, 10, 100)
-x2_constraint = 1.5 - 0.5 * x1_constraint
+x2_constraint = constraint_g1(x1_constraint, 0)  # Provide the second argument as 0
 plt.plot(x1_constraint, x2_constraint, 'g--', label='Constraint g1(x1, x2) = 0')
 plt.fill_between(x1_constraint, x2_constraint, -10, color='gray', alpha=0.3)
 
@@ -140,7 +150,7 @@ plt.text(optimal_point_booth[0], optimal_point_booth[1], 'Booth Optimal Point', 
 
 # Add constraint g2(x1, x2) <= 0
 x1_constraint_booth = np.linspace(-10, 10, 100)
-x2_constraint_booth = -x1_constraint_booth**2 - 2 * x1_constraint_booth
+x2_constraint_booth = constraint_g2(x1_constraint_booth, 0)  # Provide the second argument as 0
 plt.plot(x1_constraint_booth, x2_constraint_booth, 'g--', label='Constraint g2(x1, x2) <= 0')
 plt.fill_between(x1_constraint_booth, x2_constraint_booth, -40, color='gray', alpha=0.3)
 
@@ -191,3 +201,4 @@ print("Three-Hump Camel Optimal Point:", optimal_point_camel)
 print("Function Value at Rosenbrock Optimal Point:", rosenbrock(*optimal_point_rosenbrock))
 print("Function Value at Booth Optimal Point:", booth(*optimal_point_booth))
 print("Function Value at Three-Hump Camel Optimal Point:", three_hump_camel(*optimal_point_camel))
+

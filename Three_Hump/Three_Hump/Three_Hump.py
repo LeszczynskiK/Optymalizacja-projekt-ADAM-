@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 def three_hump_camel(x1, x2):
     return 2*x1**2 - 1.05*x1**4 + (1/6)*x1**6 + x1*x2 + x2**2
 
-# ADAM Optimization Function
-def adam_optimization(gradient_func, function, initial_point, max_learning_rate=0.9, min_learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, max_iter=100, tol=1e-8):
+# ADAM Optimization Function with Penalty and Constraints
+def adam_optimization_with_penalty_and_constraints(gradient_func, function, constraint_func, initial_point, max_learning_rate=0.9, min_learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, max_iter=50, tol=1e-8, r=10):
     # Initialize parameters
     m = np.zeros_like(initial_point)
     v = np.zeros_like(initial_point)
@@ -24,17 +24,34 @@ def adam_optimization(gradient_func, function, initial_point, max_learning_rate=
         v_hat = v / (1 - beta2 ** t)
         learning_rate = max_learning_rate - (max_learning_rate - min_learning_rate) * t / max_iter
         update = learning_rate * m_hat / (np.sqrt(v_hat) + epsilon)
+        
+        # Penalty Function for Constraints
+        constraint_penalty = constraint_func(*point)
+        if constraint_penalty <= 0:
+            penalty = 0
+        else:
+            penalty = r * constraint_penalty
+        
+        # Add penalty to the function value
         new_point = point - update
-
+        function_value = function(*new_point) + penalty
+        
         if np.linalg.norm(update) < tol:
             print("Optimization converged after", t, "iterations.")
             break
         
         point = new_point
-        history.append(function(*point))  # Save function value
+        history.append(function_value)  # Save function value
         variable_history.append(point)
-        
-    return point, np.array(history), np.array(variable_history)
+    
+    # Check if optimal point is within constraints
+    constraint_value = constraint_func(*point)
+    if constraint_value >= 0:
+        print("Optimal point found within constraints.")
+    else:
+        print("Optimal point found outside constraints.")
+
+    return point, np.array(history), np.array(variable_history), t
 
 # Gradient Functions
 def three_hump_camel_gradient(x1, x2):
@@ -42,14 +59,15 @@ def three_hump_camel_gradient(x1, x2):
     grad_x2 = x1 + 2 * x2
     return np.array([grad_x1, grad_x2])
 
+# Constraint Function for Three-Hump Camel Function
 def constraint_g3(x1, x2):
-    return x1**2 + x2**2
+    return x1**2 + x2**2 - 1  # Circle constraint: x1^2 + x2^2 <= 1
 
 # Initial point
-initial_point = np.array([-5, 5])
+initial_point = np.array([-0.2, -0.2])
 
-# Run ADAM optimization for Three-Hump Camel Function
-optimal_point_camel, history_camel, variable_history_camel = adam_optimization(three_hump_camel_gradient, three_hump_camel, initial_point)
+# Run ADAM optimization for Three-Hump Camel Function with Penalty and Constraints
+optimal_point_camel, history_camel, variable_history_camel, iterations = adam_optimization_with_penalty_and_constraints(three_hump_camel_gradient, three_hump_camel, constraint_g3, initial_point)
 
 # Visualize function value changes over iterations - Three-Hump Camel Function
 plt.figure(figsize=(10, 6))
@@ -61,10 +79,11 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-x1 = np.linspace(-10, 10, 100)
-x2 = np.linspace(-10, 10, 100)
-X1, X2 = np.meshgrid(x1, x2)
 # Visualize the contour plot of Three-Hump Camel function with optimal path and constraints
+x1 = np.linspace(-2, 2, 100)
+x2 = np.linspace(-2, 2, 100)
+X1, X2 = np.meshgrid(x1, x2)
+
 plt.figure(figsize=(10, 6))
 plt.contour(X1, X2, three_hump_camel(X1, X2), levels=np.linspace(-1, 10, 100))
 plt.plot(variable_history_camel[:,0], variable_history_camel[:,1], marker='o', color='green', label='Three-Hump Camel Optimal Path')
@@ -74,7 +93,7 @@ plt.text(initial_point[0], initial_point[1], 'Initial Point', fontsize=12)
 plt.text(optimal_point_camel[0], optimal_point_camel[1], 'Three-Hump Camel Optimal Point', fontsize=12)
 
 # Add constraint g3(x1, x2) <= 1
-circle_constraint = plt.Circle((0, 0), 1, color='gray', alpha=0.3)
+circle_constraint = plt.Circle((0, 0), 1, color='skyblue', alpha=0.3)  # Light blue color for the constraint region
 plt.gca().add_patch(circle_constraint)
 
 # Adjust plot limits for better visualization
@@ -89,8 +108,8 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-# Print optimal points
+# Print optimization results
+print("Optimization stopped after", iterations, "iterations.")
 print("Three-Hump Camel Optimal Point:", optimal_point_camel)
-
-# Print function values at optimal points
 print("Function Value at Three-Hump Camel Optimal Point:", three_hump_camel(*optimal_point_camel))
+print("Constraint Value at Three-Hump Camel Optimal Point:", constraint_g3(*optimal_point_camel))

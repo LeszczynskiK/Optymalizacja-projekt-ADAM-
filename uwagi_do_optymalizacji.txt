@@ -1,0 +1,12 @@
+Booth dodac wyjatek, ze nie moze wchodzic w obszar poza obszarem dopuszczalnym ograniczen - jak wyjdzie to wypisz wyjatek i zatrzymaj
+Rosenbrock to ograniczenie rownosciowe i tam w zle miejsce trafia
+lepiej dobrac warunek stopu
+Te ograniczenia, skoro jest juz w ograniczeniach to niech nie wariuje tylko powoli dazy do ograniczen.
+W rosenbrocku nie ma isc tak bardzo w gore tylko ma fajnie isc od razu do optimum.
+zrobic tez kod gdzie ograniczenia nie sa brane w ogole pod uwage - bez rysowania itp
+poprawic jak ograniczenia wplywaja na wynik
+Jak sa te ograniczenia to ma dazyc do pptimum a nie ze ucieka coraz bardziej poza przestrzen ograniczen i dopiero po czasie do optimum
+Rozwiazania maja byc w ograniczeniach
+Maja byc 3 przypadki czyli i bez ograniczen kod, i z ograniczeniami i z dodatkowa funkcja kary - 3 funkcje i 3 rozwiania
+W raporcienie a okreslonej ilosci roznych parametrow, ale pokazac to dla jakis 3 roznych wartosci by pokazac jak dziala zmiana
+czasem warto stosowac d wykresu skale logarytmiczna

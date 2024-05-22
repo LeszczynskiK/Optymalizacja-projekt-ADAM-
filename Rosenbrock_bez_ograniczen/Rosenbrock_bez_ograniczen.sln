@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Rosenbrock_bez_ograniczen", "Rosenbrock_bez_ograniczen\Rosenbrock_bez_ograniczen.pyproj", "{E1F7CA84-2175-4361-AC06-CFC4B12F532F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1F7CA84-2175-4361-AC06-CFC4B12F532F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F7CA84-2175-4361-AC06-CFC4B12F532F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D817A018-AB08-4C50-9A86-3792DB974D52}
+	EndGlobalSection
+EndGlobal
